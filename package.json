@@ -1,15 +1,39 @@
 {
-  "name": "react-native-pili",
-  "version": "2.3.0",
-  "description": "Pili Streaming Cloud React Native SDK",
-  "main": "index.js",
-  "scripts": {
-    "test": "npm test"
-  },
-  "repository": {
+  "_from": "git+https://github.com/wengcan/react-native-pili.git",
+  "_id": "react-native-pili@2.3.0",
+  "_inBundle": false,
+  "_location": "/react-native-pili",
+  "_phantomChildren": {},
+  "_requested": {
     "type": "git",
-    "url": "git+https://github.com/buhe/react-native-pili.git"
+    "raw": "react-native-pili@git+https://github.com/wengcan/react-native-pili.git",
+    "name": "react-native-pili",
+    "escapedName": "react-native-pili",
+    "rawSpec": "git+https://github.com/wengcan/react-native-pili.git",
+    "saveSpec": "git+https://github.com/wengcan/react-native-pili.git",
+    "fetchSpec": "https://github.com/wengcan/react-native-pili.git",
+    "gitCommittish": null
   },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "git+https://github.com/wengcan/react-native-pili.git#60de7b512ddd18d96dbcb00396fe2308dd883994",
+  "_spec": "react-native-pili@git+https://github.com/wengcan/react-native-pili.git",
+  "_where": "/home/wengcan/Work/building_monitor",
+  "author": {
+    "name": "buhe"
+  },
+  "bugs": {
+    "url": "https://github.com/buhe/react-native-pili/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Pili Streaming Cloud React Native SDK",
+  "devDependencies": {
+    "react": "^0.14.8",
+    "react-native": "^0.24.1"
+  },
+  "homepage": "https://github.com/buhe/react-native-pili#readme",
   "keywords": [
     "React",
     "Native",
@@ -19,14 +43,15 @@
     "Stream",
     "Cloud"
   ],
-  "author": "buhe",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/buhe/react-native-pili/issues"
+  "main": "index.js",
+  "name": "react-native-pili",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buhe/react-native-pili.git"
   },
-  "homepage": "https://github.com/buhe/react-native-pili#readme",
-  "devDependencies": {
-    "react": "^0.14.8",
-    "react-native": "^0.24.1"
-  }
+  "scripts": {
+    "test": "npm test"
+  },
+  "version": "2.3.0"
 }

@@ -13,6 +13,13 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.pili.pldroid.player.AVOptions;
 import com.pili.pldroid.player.PLMediaPlayer;
+import com.pili.pldroid.player.PLOnBufferingUpdateListener;
+import com.pili.pldroid.player.PLOnCompletionListener;
+import com.pili.pldroid.player.PLOnErrorListener;
+import com.pili.pldroid.player.PLOnInfoListener;
+import com.pili.pldroid.player.PLOnPreparedListener;
+import com.pili.pldroid.player.PLOnSeekCompleteListener;
+import com.pili.pldroid.player.PLOnVideoSizeChangedListener;
 import com.pili.pldroid.player.widget.PLVideoView;
 //import com.pili.rnpili.support.MediaController;
 
@@ -108,7 +115,7 @@ public class PiliPlayerViewManager extends SimpleViewManager<PLVideoView> implem
         boolean codec = source.hasKey("hardCodec") && source.getBoolean("hardCodec");  //1 or 0  // 1 -> hw codec enable, 0 -> disable [recommended]
         // the unit of timeout is ms
         if (avFrameTimeout >= 0) {
-            options.setInteger(AVOptions.KEY_GET_AV_FRAME_TIMEOUT, avFrameTimeout);
+            options.setInteger(AVOptions.KEY_PREPARE_TIMEOUT, avFrameTimeout);
         }
         // Some optimization with buffering mechanism when be set to 1
         if (liveStreaming) {
@@ -170,17 +177,18 @@ public class PiliPlayerViewManager extends SimpleViewManager<PLVideoView> implem
         //Android not implements
     }
 
-    private PLMediaPlayer.OnPreparedListener mOnPreparedListener = new PLMediaPlayer.OnPreparedListener() {
+    private PLOnPreparedListener mOnPreparedListener = new PLOnPreparedListener() {
         @Override
-        public void onPrepared(PLMediaPlayer plMediaPlayer) {
+        public void onPrepared(int preparedTime) {
+        //public void onPrepared(PLMediaPlayer plMediaPlayer) {
             Log.d(TAG, "onPrepared ! ");
             mEventEmitter.receiveEvent(getTargetId(), Events.LOADING.toString(), Arguments.createMap());
         }
     };
 
-    private PLMediaPlayer.OnInfoListener mOnInfoListener = new PLMediaPlayer.OnInfoListener() {
+    private PLOnInfoListener mOnInfoListener = new PLOnInfoListener() {
         @Override
-        public boolean onInfo(PLMediaPlayer plMediaPlayer, int what, int extra) {
+        public void onInfo(int what, int extra) {
             Log.d(TAG, "onInfo: " + what + ", " + extra);
 
             switch (what) {
@@ -194,13 +202,12 @@ public class PiliPlayerViewManager extends SimpleViewManager<PLVideoView> implem
                     mEventEmitter.receiveEvent(getTargetId(), Events.PLAYING.toString(), Arguments.createMap());
                     break;
             }
-            return true;
         }
     };
 
-    private PLMediaPlayer.OnErrorListener mOnErrorListener = new PLMediaPlayer.OnErrorListener() {
+    private PLOnErrorListener mOnErrorListener = new PLOnErrorListener() {
         @Override
-        public boolean onError(PLMediaPlayer plMediaPlayer, int errorCode) {
+        public boolean onError(int errorCode) {
             Log.e(TAG, "Error happened, errorCode = " + errorCode);
             WritableMap event = Arguments.createMap();
             event.putInt("errorCode",errorCode);
@@ -209,33 +216,31 @@ public class PiliPlayerViewManager extends SimpleViewManager<PLVideoView> implem
         }
     };
 
-    private PLMediaPlayer.OnCompletionListener mOnCompletionListener = new PLMediaPlayer.OnCompletionListener() {
+    private PLOnCompletionListener mOnCompletionListener = new PLOnCompletionListener() {
         @Override
-        public void onCompletion(PLMediaPlayer plMediaPlayer) {
+        public void onCompletion() {
             Log.d(TAG, "Play Completed !");
             mEventEmitter.receiveEvent(getTargetId(), Events.SHUTDOWN.toString(), Arguments.createMap());
         }
     };
 
-    private PLMediaPlayer.OnBufferingUpdateListener mOnBufferingUpdateListener = new PLMediaPlayer.OnBufferingUpdateListener() {
+    private PLOnBufferingUpdateListener mOnBufferingUpdateListener = new PLOnBufferingUpdateListener() {
         @Override
-        public void onBufferingUpdate(PLMediaPlayer plMediaPlayer, int precent) {
+        public void onBufferingUpdate(int precent) {
             Log.d(TAG, "onBufferingUpdate: " + precent);
         }
     };
 
-    private PLMediaPlayer.OnSeekCompleteListener mOnSeekCompleteListener = new PLMediaPlayer.OnSeekCompleteListener() {
+    private PLOnSeekCompleteListener mOnSeekCompleteListener = new PLOnSeekCompleteListener() {
         @Override
-        public void onSeekComplete(PLMediaPlayer plMediaPlayer) {
+        public void onSeekComplete() {
             Log.d(TAG, "onSeekComplete !");
         }
-
-        ;
     };
 
-    private PLMediaPlayer.OnVideoSizeChangedListener mOnVideoSizeChangedListener = new PLMediaPlayer.OnVideoSizeChangedListener() {
-        @Override
-        public void onVideoSizeChanged(PLMediaPlayer plMediaPlayer, int width, int height) {
+    private PLOnVideoSizeChangedListener mOnVideoSizeChangedListener = new PLOnVideoSizeChangedListener() {
+        //@Override
+        public void onVideoSizeChanged(int width, int height) {
             Log.d(TAG, "onVideoSizeChanged: " + width + "," + height);
         }
     };

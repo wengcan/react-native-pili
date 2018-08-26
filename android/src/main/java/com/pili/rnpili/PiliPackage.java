@@ -7,7 +7,7 @@ import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
-import com.qiniu.pili.droid.streaming.StreamingEnv;
+//import com.qiniu.pili.droid.streaming.StreamingEnv;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,7 +27,7 @@ public class PiliPackage implements ReactPackage {
         return Collections.emptyList();
     }
 
-    @Override
+   // @Override
     public List<Class<? extends JavaScriptModule>> createJSModules() {
         return Collections.emptyList();
     }
@@ -35,9 +35,9 @@ public class PiliPackage implements ReactPackage {
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Arrays.<ViewManager>asList(
-                new PiliStreamingViewManager(),
-                new PiliPlayerViewManager(),
-                new PiliAudioStreamingViewManager()
+                //new PiliStreamingViewManager(),
+                new PiliPlayerViewManager()
+               // new PiliAudioStreamingViewManager()
         );
     }
 }

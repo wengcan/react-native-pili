@@ -18,6 +18,7 @@
     bool _muted;
 }
 
+
 static NSString *status[] = {
     @"PLPlayerStatusUnknow",
     @"PLPlayerStatusPreparing",
@@ -118,19 +119,19 @@ static NSString *status[] = {
 - (void)player:(nonnull PLPlayer *)player statusDidChange:(PLPlayerStatus)state {
     switch (state) {
         case PLPlayerStatusCaching:
-            [_eventDispatcher sendInputEventWithName:@"onLoading" body:@{@"target": self.reactTag}];
+            self.onLoading(@{@"onLoading": self.reactTag});
             break;
         case PLPlayerStatusPlaying:
-            [_eventDispatcher sendInputEventWithName:@"onPlaying" body:@{@"target": self.reactTag}];
+            self.onLoading(@{@"onPlaying": self.reactTag});
             break;
         case PLPlayerStatusPaused:
-            [_eventDispatcher sendInputEventWithName:@"onPaused" body:@{@"target": self.reactTag}];
+            self.onLoading(@{@"onPaused": self.reactTag});
             break;
         case PLPlayerStatusStopped:
-            [_eventDispatcher sendInputEventWithName:@"onShutdown" body:@{@"target": self.reactTag}];
+            self.onLoading(@{@"onShutdown": self.reactTag});
             break;
         case PLPlayerStatusError:
-            [_eventDispatcher sendInputEventWithName:@"onError" body:@{@"target": self.reactTag , @"errorCode": [NSNumber numberWithUnsignedInt:0]}];
+            self.onLoading(@{@"onError": self.reactTag});
             break;
         default:
             break;

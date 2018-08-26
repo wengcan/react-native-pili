@@ -25,7 +25,8 @@ Pod::Spec.new do |s|
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
   s.author             = { "buhe" => "bugu1986@126.com" }
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/buhe/react-native-piliv2.git", :tag => "master" }
+  #s.source       = { :git => "https://github.com/buhe/react-native-piliv2.git", :tag => "master" }
+  s.source       = { :git => "https://github.com/wengcan/react-native-pili.git", :tag => "master" }
   s.source_files  = "RCTPili/**/*.{h,m}"
   s.requires_arc = true
 
