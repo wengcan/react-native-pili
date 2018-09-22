@@ -20,10 +20,11 @@ public class PiliPackage implements ReactPackage {
 
 
     public PiliPackage() {
-    }
+    } 
 
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
+        List<NativeModule> modules = new ArrayList<>();
         return Collections.emptyList();
     }
 

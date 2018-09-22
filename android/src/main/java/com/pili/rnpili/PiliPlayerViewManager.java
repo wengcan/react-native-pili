@@ -20,7 +20,7 @@ import com.pili.pldroid.player.PLOnInfoListener;
 import com.pili.pldroid.player.PLOnPreparedListener;
 import com.pili.pldroid.player.PLOnSeekCompleteListener;
 import com.pili.pldroid.player.PLOnVideoSizeChangedListener;
-import com.pili.pldroid.player.widget.PLVideoView;
+import com.pili.pldroid.player.widget.PLVideoTextureView;
 //import com.pili.rnpili.support.MediaController;
 
 import java.util.Map;
@@ -30,10 +30,10 @@ import javax.annotation.Nullable;
 /**
  * Created by buhe on 16/4/29.
  */
-public class PiliPlayerViewManager extends SimpleViewManager<PLVideoView> implements LifecycleEventListener {
+public class PiliPlayerViewManager extends SimpleViewManager<PLVideoTextureView> implements LifecycleEventListener {
     private ThemedReactContext reactContext;
     private static final String TAG = PiliPlayerViewManager.class.getSimpleName();
-    private PLVideoView mVideoView;
+    private PLVideoTextureView mVideoView;
     private RCTEventEmitter mEventEmitter;
 
     private static final int MEDIA_INFO_UNKNOWN = 1;
@@ -69,6 +69,13 @@ public class PiliPlayerViewManager extends SimpleViewManager<PLVideoView> implem
     }
 
     @Override
+    public void onDropViewInstance(PLVideoTextureView mVideoView) {
+        super.onDropViewInstance(mVideoView);
+        mVideoView.stopPlayback();
+    }
+ 
+
+    @Override
     @Nullable
     public Map getExportedCustomDirectEventTypeConstants() {
         MapBuilder.Builder builder = MapBuilder.builder();
@@ -79,10 +86,10 @@ public class PiliPlayerViewManager extends SimpleViewManager<PLVideoView> implem
     }
 
     @Override
-    protected PLVideoView createViewInstance(ThemedReactContext reactContext) {
+    protected PLVideoTextureView createViewInstance(ThemedReactContext reactContext) {
         this.reactContext = reactContext;
         mEventEmitter = reactContext.getJSModule(RCTEventEmitter.class);
-        mVideoView = new PLVideoView(reactContext);
+        mVideoView = new PLVideoTextureView(reactContext);
         // Set some listeners
         mVideoView.setOnPreparedListener(mOnPreparedListener);
         mVideoView.setOnInfoListener(mOnInfoListener);
@@ -106,7 +113,7 @@ public class PiliPlayerViewManager extends SimpleViewManager<PLVideoView> implem
     }
 
     @ReactProp(name = "source")
-    public void setSource(PLVideoView mVideoView, ReadableMap source) {
+    public void setSource(PLVideoTextureView mVideoView, ReadableMap source) {
         AVOptions options = new AVOptions();
         String uri = source.getString("uri");
         boolean mediaController = source.hasKey("controller") && source.getBoolean("controller");
@@ -148,7 +155,7 @@ public class PiliPlayerViewManager extends SimpleViewManager<PLVideoView> implem
     }
 
     @ReactProp(name = "aspectRatio")
-    public void setAspectRatio(PLVideoView mVideoView, int aspectRatio) {
+    public void setAspectRatio(PLVideoTextureView mVideoView, int aspectRatio) {
         /**
          *  ASPECT_RATIO_ORIGIN = 0;
          *  ASPECT_RATIO_FIT_PARENT = 1
@@ -161,7 +168,7 @@ public class PiliPlayerViewManager extends SimpleViewManager<PLVideoView> implem
     }
 
     @ReactProp(name = "started")
-    public void setStarted(PLVideoView mVideoView,  boolean started) {
+    public void setStarted(PLVideoTextureView mVideoView,  boolean started) {
         this.started = started;
         if (started) {
             mVideoView.start();
@@ -172,7 +179,7 @@ public class PiliPlayerViewManager extends SimpleViewManager<PLVideoView> implem
     }
 
     @ReactProp(name = "muted")
-    public void setMuted(PLVideoView mVideoView, boolean muted){
+    public void setMuted(PLVideoTextureView mVideoView, boolean muted){
 //        mVideoView.mute
         //Android not implements
     }
