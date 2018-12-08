@@ -12,6 +12,7 @@ import com.facebook.react.uimanager.ViewManager;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by buhe on 16/4/29.
